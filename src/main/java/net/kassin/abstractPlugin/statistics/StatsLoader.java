@@ -1,10 +1,10 @@
 package net.kassin.abstractPlugin.statistics;
 
-import net.kassin.abstractPlugin.DataBaseSource;
-import net.kassin.abstractPlugin.statistics.data.repository.AsyncSqlStatsRepository;
-import net.kassin.abstractPlugin.statistics.data.repository.CachedStatsRepository;
-import net.kassin.abstractPlugin.statistics.data.repository.SqlStatsRepository;
-import net.kassin.abstractPlugin.statistics.data.repository.StatsRepository;
+import net.kassin.abstractPlugin.utils.DataBaseSource;
+import net.kassin.abstractPlugin.statistics.data.PlayerStats;
+import net.kassin.abstractPlugin.statistics.data.repo.*;
+import net.kassin.abstractPlugin.statistics.listeners.StatsListener;
+import net.kassin.abstractPlugin.utils.Config;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class StatsLoader {
@@ -14,11 +14,16 @@ public class StatsLoader {
 
     public StatsLoader(JavaPlugin plugin) {
         this.plugin = plugin;
-        DataBaseSource source = DataBaseSource.create("", "", "");
-        StatsRepository dbStatsRepository = new SqlStatsRepository(source);
-        StatsRepository asyncSqlStatsRepository = new AsyncSqlStatsRepository(dbStatsRepository);
-        StatsRepository cacheSqlStatsRepository = new CachedStatsRepository(asyncSqlStatsRepository);
-        service = new StatsService(cacheSqlStatsRepository);
+
+        Config config = new Config(plugin, "stats_db.yml");
+
+        DataBaseSource statsSource = DataBaseSource.create(config.getConfigurationSection("database"));
+
+        Repository<PlayerStats> dbRepository = new SqlRepository(statsSource);
+        Repository<PlayerStats> cacheRepository = new CachedRepository(dbRepository);
+        AsyncRepository<PlayerStats> asyncStatsRepository = new AsyncStatsRepository<>(cacheRepository);
+
+        service = new StatsService(asyncStatsRepository);
     }
 
     public void registerEvents() {
