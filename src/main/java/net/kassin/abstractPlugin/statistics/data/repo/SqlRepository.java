@@ -1,5 +1,6 @@
 package net.kassin.abstractPlugin.statistics.data.repo;
 
+import net.kassin.abstractPlugin.repo.Repository;
 import net.kassin.abstractPlugin.utils.DataBaseSource;
 import net.kassin.abstractPlugin.statistics.data.PlayerStats;
 
@@ -29,7 +30,6 @@ public record SqlRepository(DataBaseSource source) implements Repository<PlayerS
             ps.setInt(2, data.getKills());
             ps.setInt(3, data.getDeaths());
             ps.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -40,6 +40,7 @@ public record SqlRepository(DataBaseSource source) implements Repository<PlayerS
         String SQL = """
                 SELECT kills, deaths FROM player_stats WHERE player_uuid = ?
                 """;
+
         try (Connection connection = source.getConnection();
              PreparedStatement ps = connection.prepareStatement(SQL)) {
 

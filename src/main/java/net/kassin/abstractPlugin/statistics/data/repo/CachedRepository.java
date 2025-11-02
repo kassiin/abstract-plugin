@@ -2,21 +2,21 @@ package net.kassin.abstractPlugin.statistics.data.repo;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import net.kassin.abstractPlugin.repo.Repository;
 import net.kassin.abstractPlugin.statistics.data.PlayerStats;
-import org.jetbrains.annotations.NotNull;
 import java.time.Duration;
 import java.util.UUID;
+import java.util.function.Function;
 
 public class CachedRepository implements Repository<PlayerStats> {
 
     private final Repository<PlayerStats> delegate;
-    private final Cache<@NotNull UUID, PlayerStats> cache;
+    private final Cache<UUID, PlayerStats> cache;
 
     public CachedRepository(Repository<PlayerStats> delegate) {
         this.delegate = delegate;
         this.cache = Caffeine.newBuilder()
                 .expireAfterAccess(Duration.ofMinutes(10))
-                .maximumSize(10_000)
                 .build();
     }
 
@@ -36,6 +36,7 @@ public class CachedRepository implements Repository<PlayerStats> {
         delegate.remove(id);
         cache.invalidate(id);
     }
-
+    
 }
+
 

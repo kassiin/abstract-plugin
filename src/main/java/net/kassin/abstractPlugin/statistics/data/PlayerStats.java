@@ -1,6 +1,5 @@
 package net.kassin.abstractPlugin.statistics.data;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

@@ -1,5 +1,8 @@
 package net.kassin.abstractPlugin.statistics.data.repo;
 
+import net.kassin.abstractPlugin.repo.AsyncRepository;
+import net.kassin.abstractPlugin.repo.Repository;
+
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;

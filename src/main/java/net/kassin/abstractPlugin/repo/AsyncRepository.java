@@ -1,4 +1,4 @@
-package net.kassin.abstractPlugin.statistics.data.repo;
+package net.kassin.abstractPlugin.repo;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;

@@ -8,6 +8,7 @@ public final class AbstractPlugin extends JavaPlugin {
 
     @Getter
     private static AbstractPlugin instance;
+    private StatsLoader statsLoader;
 
     @Override
     public void onLoad() {
@@ -16,12 +17,13 @@ public final class AbstractPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        StatsLoader statsLoader = new StatsLoader(this);
-        statsLoader.registerEvents();
+        statsLoader = new StatsLoader(this);
+        statsLoader.enable();
     }
 
     @Override
     public void onDisable() {
+        statsLoader.disable();
     }
 
 }
