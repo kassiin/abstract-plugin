@@ -1,4 +1,4 @@
-# 📂 High-Performance Persistence Architecture for Minecraft
+<img width="1854" height="695" alt="image" src="https://github.com/user-attachments/assets/9e9b702b-781e-44b2-908b-da28e23539ca" /># 📂 High-Performance Persistence Architecture for Minecraft
 
 This project demonstrates a robust and scalable architecture for managing player statistics on Minecraft servers (Paper/Spigot), emphasizing **data safety under high concurrency** and **performance optimization (TPS)**.
 
@@ -32,3 +32,4 @@ The persistence is organized into a Decorator pipeline: `SqlRepository` → `Cac
 * **Guarantee:** This forces **Event B** to wait for the complete finalization of **Event A** before its operations begin, ensuring the final read (`getPlayerStats`) always returns the correct, total value (Strong Consistency).
 
 ---
+<img width="1854" height="695" alt="image" src="https://github.com/user-attachments/assets/5bbde641-f074-4a4a-8ea6-99d2abdf792f" />
